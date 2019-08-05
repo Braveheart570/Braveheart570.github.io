@@ -6,7 +6,7 @@ var score = 0;
 var keyTypedCode;
 var scoreCounter = document.getElementById("score");
 document.addEventListener('keyup', keyTypedFunction);
-var devMode = true;
+var devMode = false;
 
 var boxDim = 20;
 canvas.height = 600;
@@ -190,8 +190,19 @@ function checkForGrowAndMove(xMod, yMod){
 	}
 }
 
+function checkIntersect(){
+	for(c = 1; c< snakeBody.length; c++){
+		if(snakeBody[0].xValue == snakeBody[c].xValue){
+			if(snakeBody[0].yValue == snakeBody[c].yValue){
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
 function movement(){
-	if(boarderCheck(keyTypedCode)){
+	if(boarderCheck(keyTypedCode) && !checkIntersect()){
 		if(keyTypedCode == 87){//w
 			lastKeyPressed = 87;
 			checkForGrowAndMove(0,-1);
